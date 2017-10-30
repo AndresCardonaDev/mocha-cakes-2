@@ -1,0 +1,122 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'publish', './' ]
+2 info using npm@3.10.8
+3 info using node@v6.8.1
+4 verbose publish [ './' ]
+5 silly cache add args [ './', null ]
+6 verbose cache add spec ./
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: './',
+7 silly cache add   scope: null,
+7 silly cache add   escapedName: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: './',
+7 silly cache add   spec: '/Users/fcardona/Documents/personal/mocha-gherkin-ui',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /Users/fcardona/.npm/mocha-gherkin-ui/0.0.1/package.tgz not in flight; packing
+9 verbose correctMkdir /Users/fcardona/.npm correctMkdir not in flight; initializing
+10 info lifecycle mocha-gherkin-ui@0.0.1~prepublish: mocha-gherkin-ui@0.0.1
+11 silly lifecycle mocha-gherkin-ui@0.0.1~prepublish: no script for prepublish, continuing
+12 verbose tar pack [ '/Users/fcardona/.npm/mocha-gherkin-ui/0.0.1/package.tgz',
+12 verbose tar pack   '/Users/fcardona/Documents/personal/mocha-gherkin-ui' ]
+13 verbose tarball /Users/fcardona/.npm/mocha-gherkin-ui/0.0.1/package.tgz
+14 verbose folder /Users/fcardona/Documents/personal/mocha-gherkin-ui
+15 verbose addLocalTarball adding from inside cache /Users/fcardona/.npm/mocha-gherkin-ui/0.0.1/package.tgz
+16 verbose correctMkdir /Users/fcardona/.npm correctMkdir not in flight; initializing
+17 silly cache afterAdd mocha-gherkin-ui@0.0.1
+18 verbose afterAdd /Users/fcardona/.npm/mocha-gherkin-ui/0.0.1/package/package.json not in flight; writing
+19 verbose correctMkdir /Users/fcardona/.npm correctMkdir not in flight; initializing
+20 verbose afterAdd /Users/fcardona/.npm/mocha-gherkin-ui/0.0.1/package/package.json written
+21 silly publish { name: 'mocha-gherkin-ui',
+21 silly publish   version: '0.0.1',
+21 silly publish   description: 'A Mocha BDD Gherking UI, introducing selective test skip on fail and tags!',
+21 silly publish   main: 'mocha-gherkin-ui.js',
+21 silly publish   scripts:
+21 silly publish    { test: 'mocha ./test/**/*tests.js',
+21 silly publish      'test:watch': 'mocha ./test/**/*tests.js --watch -R dot' },
+21 silly publish   repository:
+21 silly publish    { type: 'git',
+21 silly publish      url: 'git+https://github.com/AndresCardonaDev/mocha-gherkin-ui.git' },
+21 silly publish   keywords:
+21 silly publish    [ 'mocha',
+21 silly publish      'cakes',
+21 silly publish      'bdd',
+21 silly publish      'tdd',
+21 silly publish      'test',
+21 silly publish      'node',
+21 silly publish      'javascript',
+21 silly publish      'nodejs',
+21 silly publish      'gherkin',
+21 silly publish      'cucumber' ],
+21 silly publish   author: { name: 'Andres Felipe Cardona' },
+21 silly publish   license: 'MIT',
+21 silly publish   bugs: { url: 'https://github.com/iensu/mocha-cakes-2/issues' },
+21 silly publish   homepage: 'https://github.com/iensu/mocha-cakes-2#readme',
+21 silly publish   peerDependencies: { mocha: '4.x' },
+21 silly publish   devDependencies: { bluebird: '3.4.6', chai: '3.5.0', mocha: '^4.0.1' },
+21 silly publish   dependencies: { minimist: '^1.2.0' },
+21 silly publish   readme: '# Making Gherkin language use with mocha Easy\n\nMocha Gherkin UI is a [Gherkin](https://github.com/cucumber/cucumber/wiki/Gherkin)/[Cucumber](https://cucumber.io/) syntax UI integration for [Mocha](https://mochajs.org/) testing framework.\n\nAllows you to:\n \n- Use common Gherking language to define your features and scenarios.\n\n```javascript\nFeature(\'some feature\', () => {\n  Scenario(\'some scenario.\', () => {\n    Given(\'some precondition\', () => {});\n    And(\'another precondition\', () => {});\n    \n    When(\'stimulus\', () => {});\n\n    Then(\'postcondition\', () => {});\n    But(\'another postcondition\', () => {})\n  });\n});\n```\n\n- Allows you to define special tags to identify your Features or scenarios and filter them in execution\n```javascript\nTag(\'critical\', \'JIRA-1145\')\n.Feature(\'some feature\', () => {\n  Scenario(\'some scenario.\', () => {\n    ...\n  });\n});\n\nFeature(\'some feature\', () => {\n  Scenario(\'some scenario.\', () => {\n    ...\n  });\n  Tag(\'critical\')\n  .Scenario(\'some scenario.\', () => {\n    ...\n  });\n});\n```\n\n- And, allows two test execution skip patterns on fail based on the Gherkin language:\n\n*Moderated* (configured by default)\nWill allow all complementary steps execution to let you see complete scenario from a main step and will skip the subsequent main steps (Given, When, Then)\n```\n    Feature: some\n      Scenario: some\n        ✓ Given prec\n        ✗ And 2nd prec\n        ✓ And 3rd prec\n        ✗ And 4th prec\n        ✓ But 5th prec\n        - When stimulus\n        - and another stimulus\n        - Then postCond\n        - But another postCond\n```\n\nAbsolute: (*Concept introduced by @asyncadventures at [mocha-steps](https://www.npmjs.com/package/mocha-steps) *)\n```\n    Feature: some\n      Scenario: some\n        ✓ Given prec\n        ✗ And 2nd prec\n        - And 3rd prec\n        - And 4th prec\n        - But 5th prec\n        - When stimulus\n        - and another stimulus\n        - Then postCond\n        - But another postCond\n```\n\nOriginal: (*The one you are used to*)\n```\n    Feature: some\n      Scenario: some\n        ✓ Given prec\n        ✗ And 2nd prec\n        ✓ And 3rd prec\n        ✗ And 4th prec\n        ✓ But 5th prec\n        ✗ When stimulus\n        ✗ and another stimulus\n        ✗ Then postCond\n        ✗ But another postCond\n```\n## Installation\n\nNPM:\n\n```\nnpm install --save-dev mocha-gherking-ui\n```\n\n## Usage\n\nIndicate mocha you are going to use `mocha-gherkin-ui` as a mocha integration using `--ui mocha-gherkin-ui` option on mocha command:\n\n``` javascript\nmocha --ui mocha-gherkin-ui path/to/my/tests\n```\n\nIf you like specify which type of skip do you prefer `moderate`, `absolute` or `original` (By default `moderate`):\n\n``` javascript\nmocha --ui mocha-gherkin-ui --mochaGherkinUiSkipMode absolute path/to/my/tests \n```\n\nAnd be able to filter by the tags you gave, the test you want to run\n``` javascript\nmocha --ui mocha-gherkin-ui --mochaGherkinUiSkipMode absolute --mochaGherkinUiFilterTags critical,system1,anything path/to/my/tests \n```\n\n\n## Acknowledgements\n\nStarted by studying the code from @iensu in [mocha-cakes-2](https://github.com/iensu/mocha-cakes-2);\nthe good examples in the @mochajs wiki [Mocha wiki](https://github.com/mochajs/mocha/wiki)\nand the ideas from @asyncadventures [mocha-steps](https://github.com/rprieto/mocha-steps) \n',
+21 silly publish   readmeFilename: 'README.md',
+21 silly publish   gitHead: '2a7b968114c11342f31106b1cb751dfdea01bdd5',
+21 silly publish   _id: 'mocha-gherkin-ui@0.0.1',
+21 silly publish   _shasum: 'c4a78defd3d1a621e2cee59e5debcd4e2b5480e7',
+21 silly publish   _from: '.' }
+22 verbose getPublishConfig undefined
+23 silly mapToRegistry name mocha-gherkin-ui
+24 silly mapToRegistry using default registry
+25 silly mapToRegistry registry https://registry.npmjs.org/
+26 silly mapToRegistry data Result {
+26 silly mapToRegistry   raw: 'mocha-gherkin-ui',
+26 silly mapToRegistry   scope: null,
+26 silly mapToRegistry   escapedName: 'mocha-gherkin-ui',
+26 silly mapToRegistry   name: 'mocha-gherkin-ui',
+26 silly mapToRegistry   rawSpec: '',
+26 silly mapToRegistry   spec: 'latest',
+26 silly mapToRegistry   type: 'tag' }
+27 silly mapToRegistry uri https://registry.npmjs.org/mocha-gherkin-ui
+28 verbose publish registryBase https://registry.npmjs.org/
+29 silly publish uploading /Users/fcardona/.npm/mocha-gherkin-ui/0.0.1/package.tgz
+30 verbose request uri https://registry.npmjs.org/mocha-gherkin-ui
+31 verbose request sending authorization for write operation
+32 info attempt registry request try #1 at 6:34:25 AM
+33 verbose request using bearer token for auth
+34 verbose request id f1e3fb5a2b23c8ec
+35 http request PUT https://registry.npmjs.org/mocha-gherkin-ui
+36 http 403 https://registry.npmjs.org/mocha-gherkin-ui
+37 verbose headers { 'content-type': 'application/json',
+37 verbose headers   'cache-control': 'max-age=300',
+37 verbose headers   'content-length': '91',
+37 verbose headers   'accept-ranges': 'bytes',
+37 verbose headers   date: 'Mon, 30 Oct 2017 11:34:28 GMT',
+37 verbose headers   via: '1.1 varnish',
+37 verbose headers   connection: 'keep-alive',
+37 verbose headers   'x-served-by': 'cache-mia17632-MIA',
+37 verbose headers   'x-cache': 'MISS',
+37 verbose headers   'x-cache-hits': '0',
+37 verbose headers   'x-timer': 'S1509363267.384717,VS0,VE655',
+37 verbose headers   vary: 'Accept-Encoding, Accept' }
+38 verbose request invalidating /Users/fcardona/.npm/registry.npmjs.org/mocha-gherkin-ui on PUT
+39 error publish Failed PUT 403
+40 verbose stack Error: You cannot publish over the previously published version 0.0.1. : mocha-gherkin-ui
+40 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:302:12)
+40 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:290:14)
+40 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:14)
+40 verbose stack     at Request.self.callback (/usr/local/lib/node_modules/npm/node_modules/request/request.js:187:22)
+40 verbose stack     at emitTwo (events.js:106:13)
+40 verbose stack     at Request.emit (events.js:191:7)
+40 verbose stack     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:1044:10)
+40 verbose stack     at emitOne (events.js:96:13)
+40 verbose stack     at Request.emit (events.js:188:7)
+40 verbose stack     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/request.js:965:12)
+41 verbose statusCode 403
+42 verbose pkgid mocha-gherkin-ui
+43 verbose cwd /Users/fcardona/Documents/personal/mocha-gherkin-ui
+44 error Darwin 15.6.0
+45 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "publish" "./"
+46 error node v6.8.1
+47 error npm  v3.10.8
+48 error code E403
+49 error You cannot publish over the previously published version 0.0.1. : mocha-gherkin-ui
+50 error If you need help, you may report this error at:
+50 error     <https://github.com/npm/npm/issues>
+51 verbose exit [ 1, true ]

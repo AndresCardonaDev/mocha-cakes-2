@@ -1,7 +1,11 @@
 'use strict';
 
-var execTestFile = require('./../helpers').execTestFile;
+const execTestFile = require('./../helpers').execTestFile;
 
+
+/**
+ * Original tests taken from @iensu in [mocha-cakes-2](https://github.com/iensu/mocha-cakes-2)
+ */
 describe('Mocha Cakes', function () {
 
   describe('A basic feature test', function () {
@@ -229,6 +233,45 @@ describe('Mocha Cakes', function () {
 
     it('should have the correct `then` clause', function () {
       output.should.contain('✓ Then everything should be ok');
+    });
+  });
+
+  describe('Selective exclusion of test execution based on the type fo Gherking expression', function () {
+
+    var output;
+
+    before(function () {
+      return execTestFile('feature/sample-tests/skipping-only-complementary-steps.js')
+        .then(function (result) {
+          output = result;
+        });
+    });
+
+    it('should show scenario 1 skipping only main subsequent steps', function () {
+      let lines = output.split('\n');
+      while(!lines.shift().match(/Scenario: Sub steps should not be skipped/)) {}
+
+      lines.shift().should.match(/1\) Given executed/);
+      lines.shift().should.match(/2\) And executed/);
+      lines.shift().should.match(/✓ And executed/);
+      lines.shift().should.match(/✓ But executed/);
+      lines.shift().should.match(/- When omitted/);
+      lines.shift().should.match(/- Then omitted/);
+
+    });
+
+    it('should show scenario 2 skipping all main subsequent steps and their substeps', function () {
+      let lines = output.split('\n');
+      while(!lines.shift().match(/Scenario: Skip all subsequent main steps/)) {}
+
+      lines.shift().should.match(/3\) Given executed/);
+      lines.shift().should.match(/- When omitted/);
+      lines.shift().should.match(/- And omitted/);
+      lines.shift().should.match(/- But omitted/);
+      lines.shift().should.match(/- Then omitted/);
+      lines.shift().should.match(/- And omitted/);
+      lines.shift().should.match(/- But omitted/);
+
     });
   });
 });
